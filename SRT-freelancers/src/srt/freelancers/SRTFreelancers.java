@@ -18,6 +18,7 @@ public class SRTFreelancers {
      */
     public static void main(String[] args) {
     
+    Repositório repo= new Repositório();
     Scanner scanner = new Scanner(System.in);
 
     int optionSelected;
@@ -30,7 +31,7 @@ public class SRTFreelancers {
         optionSelected = scanner.nextInt();
 
         if(optionSelected == 1){
-            boolean login = Conta.login();
+            boolean login = Conta.login(repo);
             System.out.println("Login in progress\n");
         } else if (optionSelected == 2){
             
