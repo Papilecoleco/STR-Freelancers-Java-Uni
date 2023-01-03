@@ -47,6 +47,14 @@ public class Menu extends javax.swing.JPanel {
         jButton5 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jButton7 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.addHierarchyListener(new java.awt.event.HierarchyListener() {
@@ -81,7 +89,7 @@ public class Menu extends javax.swing.JPanel {
                         .addGap(355, 355, 355)
                         .addComponent(jLabel4))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(449, 449, 449)
+                        .addGap(478, 478, 478)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel7)))
@@ -110,22 +118,23 @@ public class Menu extends javax.swing.JPanel {
 
         jButton5.setBackground(new java.awt.Color(255, 255, 255));
         jButton5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(51, 0, 51));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/lista.png"))); // NOI18N
+        jButton5.setForeground(new java.awt.Color(204, 204, 0));
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/novo-projeto (1).png"))); // NOI18N
+        jButton5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(241, 172, 49), 3, true));
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
         jPanel1.add(jButton5);
-        jButton5.setBounds(420, 340, 130, 120);
+        jButton5.setBounds(240, 330, 150, 140);
 
         jLabel2.setBackground(new java.awt.Color(51, 0, 51));
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel2.setText("Nova Tarefa");
+        jLabel2.setText("Novo Projeto");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(430, 460, 110, 25);
+        jLabel2.setBounds(260, 470, 120, 25);
 
         jButton1.setBackground(new java.awt.Color(241, 172, 49));
         jButton1.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
@@ -138,6 +147,86 @@ public class Menu extends javax.swing.JPanel {
         });
         jPanel1.add(jButton1);
         jButton1.setBounds(390, 550, 200, 40);
+
+        jButton6.setBackground(new java.awt.Color(255, 255, 255));
+        jButton6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(204, 204, 0));
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/do-utilizador.png"))); // NOI18N
+        jButton6.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(241, 172, 49), 3, true));
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton6);
+        jButton6.setBounds(60, 330, 150, 140);
+
+        jLabel3.setBackground(new java.awt.Color(51, 0, 51));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel3.setText("Editar Conta");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(80, 470, 110, 25);
+
+        jButton7.setBackground(new java.awt.Color(255, 255, 255));
+        jButton7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(204, 204, 0));
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/nova-tarefa.png"))); // NOI18N
+        jButton7.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(241, 172, 49), 3, true));
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton7);
+        jButton7.setBounds(600, 330, 150, 140);
+
+        jLabel5.setBackground(new java.awt.Color(51, 0, 51));
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel5.setText("Nova Tarefa");
+        jPanel1.add(jLabel5);
+        jLabel5.setBounds(620, 470, 120, 25);
+
+        jLabel6.setBackground(new java.awt.Color(51, 0, 51));
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel6.setText("Gerir Tarefas");
+        jPanel1.add(jLabel6);
+        jLabel6.setBounds(440, 470, 120, 25);
+
+        jButton8.setBackground(new java.awt.Color(255, 255, 255));
+        jButton8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButton8.setForeground(new java.awt.Color(204, 204, 0));
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/gerenciar.png"))); // NOI18N
+        jButton8.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(241, 172, 49), 3, true));
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton8);
+        jButton8.setBounds(420, 330, 150, 140);
+
+        jButton9.setBackground(new java.awt.Color(255, 255, 255));
+        jButton9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButton9.setForeground(new java.awt.Color(204, 204, 0));
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/gerenciamento-de-projetos.png"))); // NOI18N
+        jButton9.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(241, 172, 49), 3, true));
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton9);
+        jButton9.setBounds(780, 330, 150, 140);
+
+        jLabel10.setBackground(new java.awt.Color(51, 0, 51));
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel10.setText("Listar Projetos");
+        jPanel1.add(jLabel10);
+        jLabel10.setBounds(790, 470, 130, 25);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -169,6 +258,22 @@ public class Menu extends javax.swing.JPanel {
         System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        this.parentFrame.trocaPainel(new EditarConta(this.parentFrame));
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        this.parentFrame.trocaPainel(new NovaTarefa(this.parentFrame));
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        this.parentFrame.trocaPainel(new GerirTarefas(this.parentFrame));
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        this.parentFrame.trocaPainel(new ListarProjetos(this.parentFrame));
+    }//GEN-LAST:event_jButton9ActionPerformed
+
         
     
                                         
@@ -187,8 +292,16 @@ public class Menu extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

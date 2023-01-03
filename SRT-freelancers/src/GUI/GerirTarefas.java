@@ -13,7 +13,7 @@ import javax.swing.JPanel;
  *
  * @author pedro
  */
-public class NovaTarefa extends javax.swing.JPanel {
+public class GerirTarefas extends javax.swing.JPanel {
 
     public BigDecimal userid;
     private PaginaInicial parentFrame;
@@ -23,7 +23,7 @@ public class NovaTarefa extends javax.swing.JPanel {
     /**
      * Creates new form Login
      */
-    public NovaTarefa(PaginaInicial parent) {
+    public GerirTarefas(PaginaInicial parent) {
         initComponents();
         parentFrame = parent;
 
@@ -66,7 +66,7 @@ public class NovaTarefa extends javax.swing.JPanel {
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel8.setText("Nova Tarefa");
+        jLabel8.setText("Gerir Tarefas");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
