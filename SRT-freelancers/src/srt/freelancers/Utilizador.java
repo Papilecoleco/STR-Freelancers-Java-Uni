@@ -5,8 +5,6 @@
  */
 package srt.freelancers;
 
-import java.util.Scanner;
-
 /**
  *
  * @author papil

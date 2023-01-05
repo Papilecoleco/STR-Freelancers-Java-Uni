@@ -6,6 +6,7 @@
 package srt.freelancers;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -15,6 +16,8 @@ public class Tarefas {
     Integer id;
     String nome;
     String descrição;
-    Date data;
+    Date dataInicial;
+    Date dataFinal;
     Double ContadorHoras;
+    List<Utilizador> colaboradoresTarefas;
 }
