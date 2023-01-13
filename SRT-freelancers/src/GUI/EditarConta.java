@@ -6,8 +6,11 @@
 package GUI;
 
 import java.math.BigDecimal;
+import java.util.Iterator;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import srt.freelancers.Repositorio;
+import srt.freelancers.TipoConta;
+import srt.freelancers.Utilizador;
 
 /**
  *
@@ -17,15 +20,23 @@ public class EditarConta extends javax.swing.JPanel {
 
     public BigDecimal userid;
     private PaginaInicial parentFrame;
-    private JPanel painelVisivel;
-
+    private Utilizador utilizador = null;
 
     /**
-     * Creates new form Login
+     * Creates new form EditarConta
      */
-    public EditarConta(PaginaInicial parent) {
+    public EditarConta(PaginaInicial parent, String user) {
         initComponents();
         parentFrame = parent;
+
+        Utilizador util = new Utilizador();
+        utilizador = util.setUser(user);
+
+        txtNome.setText(utilizador.getNome());
+        txtemail.setText(utilizador.getEmail());
+        txtUsername.setText(utilizador.getUsername());
+        txtPassword.setText(utilizador.getPassword());
+        txtHoras.setText(utilizador.getHorasTrabalho().toString());
 
     }
 
@@ -44,6 +55,18 @@ public class EditarConta extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        txtNome = new javax.swing.JTextField();
+        jButton5 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        txtPassword = new javax.swing.JPasswordField();
+        jLabel10 = new javax.swing.JLabel();
+        txtUsername = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtemail = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txtHoras = new javax.swing.JTextField();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.addHierarchyListener(new java.awt.event.HierarchyListener() {
@@ -81,7 +104,7 @@ public class EditarConta extends javax.swing.JPanel {
                         .addGap(321, 321, 321)
                         .addComponent(jLabel4))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(412, 412, 412)
+                        .addGap(418, 418, 418)
                         .addComponent(jLabel8)))
                 .addContainerGap(434, Short.MAX_VALUE))
         );
@@ -110,7 +133,115 @@ public class EditarConta extends javax.swing.JPanel {
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(410, 530, 200, 40);
+        jButton1.setBounds(190, 600, 200, 40);
+
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel1.setText("Nome:");
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(100, 200, 80, 20);
+
+        txtNome.setBackground(new java.awt.Color(255, 255, 255));
+        txtNome.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtNome.setForeground(new java.awt.Color(51, 51, 51));
+        jPanel1.add(txtNome);
+        txtNome.setBounds(100, 230, 330, 30);
+
+        jButton5.setBackground(new java.awt.Color(204, 204, 255));
+        jButton5.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(51, 51, 51));
+        jButton5.setText("Criar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton5);
+        jButton5.setBounds(630, 600, 200, 40);
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 204));
+
+        txtPassword.setBackground(new java.awt.Color(255, 255, 255));
+        txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtPassword.setForeground(new java.awt.Color(51, 51, 51));
+
+        jLabel10.setBackground(new java.awt.Color(255, 255, 204));
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel10.setText("Password:");
+        jLabel10.setOpaque(true);
+
+        txtUsername.setBackground(new java.awt.Color(255, 255, 255));
+        txtUsername.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtUsername.setForeground(new java.awt.Color(51, 51, 51));
+        txtUsername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUsernameActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setBackground(new java.awt.Color(255, 255, 204));
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel9.setText("Username:");
+        jLabel9.setOpaque(true);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(101, 101, 101)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(169, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(381, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanel2);
+        jPanel2.setBounds(500, 150, 500, 550);
+
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel2.setText("Email:");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(100, 280, 80, 20);
+
+        txtemail.setBackground(new java.awt.Color(255, 255, 255));
+        txtemail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtemail.setForeground(new java.awt.Color(51, 51, 51));
+        jPanel1.add(txtemail);
+        txtemail.setBounds(100, 310, 330, 30);
+
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel3.setText("Horas de Trabalho diario:");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(100, 370, 220, 20);
+
+        txtHoras.setBackground(new java.awt.Color(255, 255, 255));
+        txtHoras.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtHoras.setForeground(new java.awt.Color(51, 51, 51));
+        jPanel1.add(txtHoras);
+        txtHoras.setBounds(100, 400, 110, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -135,30 +266,80 @@ public class EditarConta extends javax.swing.JPanel {
     }//GEN-LAST:event_jPanel1HierarchyChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.parentFrame.trocaPainel(new Menu(this.parentFrame));
+        this.parentFrame.trocaPainel(new Menu(this.parentFrame, this.utilizador.getUsername()));
     }//GEN-LAST:event_jButton1ActionPerformed
 
-        
-    
-                                        
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        boolean altera = true;
 
-        
-    
-    private void userActionPerformed(java.awt.event.ActionEvent evt) {                                     
-        // TODO add your handling code here:
-    }                                    
+        //inputs
+        String nome = this.txtNome.getText();
+        String email = this.txtemail.getText();
+        String password = this.txtPassword.getText();
+        String username = this.txtUsername.getText();
+        Integer Horas = Integer.parseInt(this.txtHoras.getText());
 
-    private void pwActionPerformed(java.awt.event.ActionEvent evt) {                                   
+        Iterator<Utilizador> iter = Repositorio.getInstance().getUtilizadores().iterator();
+
+        Utilizador u = new Utilizador();
+        u.setNome(nome);
+        u.setEmail(email);
+        u.setPassword(password);
+        u.setUsername(username);
+        u.setTipo(TipoConta.USER);
+        u.setHorasTrabalho(Horas);
+
+        while (iter.hasNext()) {
+            Utilizador user = iter.next();
+            if (altera) {
+                if (user.getUsername().equals(utilizador.getUsername())) {
+                    iter.remove();
+                    JOptionPane.showMessageDialog(null, "Alterado com sucesso!");
+                    altera = true;
+                }
+            }
+        }
+        if (altera) {
+            Repositorio.getInstance().novoUtilizador(u);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Erro ao registar");
+        }
+
+
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
         // TODO add your handling code here:
-    }                                  
+    }//GEN-LAST:event_txtUsernameActionPerformed
+
+    private void userActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void pwActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JTextField txtHoras;
+    private javax.swing.JTextField txtNome;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtUsername;
+    private javax.swing.JTextField txtemail;
     // End of variables declaration//GEN-END:variables
 }

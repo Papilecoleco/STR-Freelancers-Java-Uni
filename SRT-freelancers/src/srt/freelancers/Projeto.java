@@ -5,41 +5,44 @@
  */
 package srt.freelancers;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  *
  * @author papil
  */
-public class Projeto {
-    String idProjeto;
+public class Projeto implements Serializable {
     String nome;
-    String nomeCliente;
     Float precoPhora;
-    Date DataIniciada;
-    Date DataFinalizada;
-    List<Tarefas> tarefasP;
-    List<Utilizador> colaboradores;
+    String nomeCliente;
+    int TotalHoras;
+    Set<Tarefas> tarefaList= null;
+    Set<Utilizador> util = null;
 
-    public Projeto(String idProjeto, String nome, String nomeCliente, Float precoPhora, Date DataIniciada, Date DataFinalizada) {
-        this.idProjeto = idProjeto;
-        this.nome = nome;
+    public Projeto() {
+        tarefaList=new HashSet<>();
+        util = new HashSet<>();
+    }
+
+    public String getNomeCliente() {
+        return nomeCliente;
+    }
+
+    public void setNomeCliente(String nomeCliente) {
         this.nomeCliente = nomeCliente;
-        this.precoPhora = precoPhora;
-        this.DataIniciada = DataIniciada;
-        this.DataFinalizada = DataFinalizada;
-        this.tarefasP = tarefasP;
-        this.colaboradores = colaboradores;
+    }
+    
+
+    public Set<Utilizador> getUtil() {
+        return util;
     }
 
-    public String getIdProjeto() {
-        return idProjeto;
-    }
-
-    public void setIdProjeto(String idProjeto) {
-        this.idProjeto = idProjeto;
+    public void setUtil(Set<Utilizador> util) {
+        this.util = util;
     }
 
     public String getNome() {
@@ -50,14 +53,6 @@ public class Projeto {
         this.nome = nome;
     }
 
-    public String getNomeCliente() {
-        return nomeCliente;
-    }
-
-    public void setNomeCliente(String nomeCliente) {
-        this.nomeCliente = nomeCliente;
-    }
-
     public Float getPrecoPhora() {
         return precoPhora;
     }
@@ -66,37 +61,19 @@ public class Projeto {
         this.precoPhora = precoPhora;
     }
 
-    public Date getDataIniciada() {
-        return DataIniciada;
+    public int getTotalHoras() {
+        return TotalHoras;
     }
 
-    public void setDataIniciada(Date DataIniciada) {
-        this.DataIniciada = DataIniciada;
+    public void setTotalHoras(int TotalHoras) {
+        this.TotalHoras = TotalHoras;
     }
 
-    public Date getDataFinalizada() {
-        return DataFinalizada;
+    public Set<Tarefas> getTarefaList() {
+        return tarefaList;
     }
 
-    public void setDataFinalizada(Date DataFinalizada) {
-        this.DataFinalizada = DataFinalizada;
+    public void setTarefaList(Set<Tarefas> tarefaList) {
+        this.tarefaList = tarefaList;
     }
-
-    public List<Tarefas> getTarefasP() {
-        return tarefasP;
-    }
-
-    public void setTarefasP(List<Tarefas> tarefasP) {
-        this.tarefasP = tarefasP;
-    }
-
-    public List<Utilizador> getColaboradores() {
-        return colaboradores;
-    }
-
-    public void setColaboradores(List<Utilizador> colaboradores) {
-        this.colaboradores = colaboradores;
-    }
-    
-    
 }

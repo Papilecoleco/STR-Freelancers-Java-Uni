@@ -5,19 +5,57 @@
  */
 package srt.freelancers;
 
+import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 /**
  *
  * @author papil
  */
-public class Tarefas {
-    Integer id;
-    String nome;
-    String descrição;
-    Date dataInicial;
-    Date dataFinal;
-    Double ContadorHoras;
-    List<Utilizador> colaboradoresTarefas;
+public class Tarefas implements Serializable {
+    String descricao;
+    Date dataInicio;
+    boolean is_started;
+    Date dataFim;
+    
+    
+    public Tarefas() {
+       Date dataFim = null;
+       Date dataInicio = null;
+       boolean is_started = false;
+    }
+
+    
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Date getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(Date dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public boolean isIs_started() {
+        return is_started;
+    }
+
+    public void setIs_started(boolean is_started) {
+        this.is_started = is_started;
+    }
+
+    public Date getDataFim() {
+        return dataFim;
+    }
+
+    public void setDataFim(Date dataFim) {
+        this.dataFim = dataFim;
+    }
 }

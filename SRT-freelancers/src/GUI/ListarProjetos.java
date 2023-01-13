@@ -6,8 +6,16 @@
 package GUI;
 
 import java.math.BigDecimal;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.Iterator;
+import java.util.Set;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+import srt.freelancers.Projeto;
+import srt.freelancers.Repositorio;
+import srt.freelancers.Tarefas;
+import srt.freelancers.Utilizador;
 
 /**
  *
@@ -17,16 +25,26 @@ public class ListarProjetos extends javax.swing.JPanel {
 
     public BigDecimal userid;
     private PaginaInicial parentFrame;
-    private JPanel painelVisivel;
-
+    private Utilizador utilizador;
 
     /**
      * Creates new form Login
      */
-    public ListarProjetos(PaginaInicial parent) {
+    public ListarProjetos(PaginaInicial parent, String user) {
         initComponents();
         parentFrame = parent;
+        Utilizador ut = new Utilizador();
+        utilizador = ut.setUser(user);
 
+        DefaultTableModel res1 = (DefaultTableModel) this.tableProjetos.getModel();
+
+        //Imprime os projetos na Tabela
+        for (Projeto p : Repositorio.getInstance().getProjeto_tarefas().keySet()) {
+            if (p.getUtil().contains(utilizador)) {
+                Object[] dados = {p.getNome(), p.getPrecoPhora(), p.getTotalHoras(), p.getNomeCliente()};
+                res1.addRow(dados);
+            }
+        }
     }
 
     /**
@@ -44,6 +62,16 @@ public class ListarProjetos extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tableTarefas = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tableProjetos = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.addHierarchyListener(new java.awt.event.HierarchyListener() {
@@ -66,7 +94,7 @@ public class ListarProjetos extends javax.swing.JPanel {
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel8.setText("Listar Projetos");
+        jLabel8.setText("Menu Projeto");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -98,7 +126,7 @@ public class ListarProjetos extends javax.swing.JPanel {
         );
 
         jPanel1.add(jPanel3);
-        jPanel3.setBounds(0, 0, 1071, 150);
+        jPanel3.setBounds(0, -10, 1071, 150);
 
         jButton1.setBackground(new java.awt.Color(241, 172, 49));
         jButton1.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
@@ -110,7 +138,106 @@ public class ListarProjetos extends javax.swing.JPanel {
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(410, 530, 200, 40);
+        jButton1.setBounds(390, 640, 200, 40);
+
+        tableTarefas.setBackground(new java.awt.Color(204, 204, 204));
+        tableTarefas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {},
+            new String [] {
+                "Descrição","Estado"
+            }
+        ));
+        tableTarefas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableTarefasMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tableTarefas);
+
+        jPanel1.add(jScrollPane2);
+        jScrollPane2.setBounds(210, 450, 320, 140);
+
+        tableProjetos.setBackground(new java.awt.Color(204, 204, 204));
+        tableProjetos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {},
+            new String [] {
+                "Nome", "Preço", "Total Horas", "Nome do Cliente"
+            }
+        ));
+        tableProjetos.setToolTipText("");
+        tableProjetos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableProjetosMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tableProjetos);
+
+        jPanel1.add(jScrollPane3);
+        jScrollPane3.setBounds(210, 180, 580, 160);
+
+        jLabel11.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel11.setText("Lista de Projetos:");
+        jLabel11.setOpaque(true);
+        jPanel1.add(jLabel11);
+        jLabel11.setBounds(210, 150, 170, 27);
+
+        jLabel12.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel12.setText("Lista de Tarefas:");
+        jLabel12.setOpaque(true);
+        jPanel1.add(jLabel12);
+        jLabel12.setBounds(210, 420, 170, 27);
+
+        jButton6.setBackground(new java.awt.Color(204, 204, 255));
+        jButton6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(51, 51, 51));
+        jButton6.setText("Iniciar Tarefa");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton6);
+        jButton6.setBounds(560, 460, 230, 40);
+
+        jButton7.setBackground(new java.awt.Color(204, 204, 255));
+        jButton7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(51, 51, 51));
+        jButton7.setText("Finalizar Tarefa");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton7);
+        jButton7.setBounds(560, 550, 230, 40);
+
+        jButton8.setBackground(new java.awt.Color(204, 204, 255));
+        jButton8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButton8.setForeground(new java.awt.Color(51, 51, 51));
+        jButton8.setText("Adicionar Utilizador");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton8);
+        jButton8.setBounds(560, 370, 240, 40);
+
+        jButton9.setBackground(new java.awt.Color(204, 204, 255));
+        jButton9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButton9.setForeground(new java.awt.Color(51, 51, 51));
+        jButton9.setText("Ver Colaboradores");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton9);
+        jButton9.setBounds(210, 370, 240, 40);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -135,30 +262,214 @@ public class ListarProjetos extends javax.swing.JPanel {
     }//GEN-LAST:event_jPanel1HierarchyChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.parentFrame.trocaPainel(new Menu(this.parentFrame));
+        this.parentFrame.trocaPainel(new Menu(this.parentFrame, this.utilizador.getUsername()));
     }//GEN-LAST:event_jButton1ActionPerformed
 
-        
-    
-                                        
+    private void tableProjetosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableProjetosMouseClicked
 
-        
-    
-    private void userActionPerformed(java.awt.event.ActionEvent evt) {                                     
-        // TODO add your handling code here:
-    }                                    
+        DefaultTableModel tabelaTarefa = (DefaultTableModel) tableTarefas.getModel();
+        tabelaTarefa.setRowCount(0);
+        DefaultTableModel model = (DefaultTableModel) tableProjetos.getModel();
+        int linha = tableProjetos.getSelectedRow();
+        String n = model.getValueAt(linha, 0).toString();
 
-    private void pwActionPerformed(java.awt.event.ActionEvent evt) {                                   
+        for (Projeto proj : Repositorio.getInstance().getProjeto_tarefas().keySet()) {
+            if (proj.getNome().equals(n)) {
+                Set<Tarefas> guarda = null;
+                guarda = proj.getTarefaList();
+                Iterator<Tarefas> iter = guarda.iterator();
+
+                while (iter.hasNext()) {
+                    Tarefas t = iter.next();
+                    String estado = "";
+                    if (t.isIs_started() & t.getDataFim() != null & t.getDataInicio() != null) {
+                        estado = "Concluida";
+                    }
+                    if (t.isIs_started() & t.getDataInicio() != null & t.getDataFim() != null) {
+                        estado = "Iniciada";
+                    } else {
+                        estado = "Não Iniciada";
+                    }
+                    Object[] dados = {t.getDescricao(), estado};
+                    tabelaTarefa.addRow(dados);
+                }
+
+            }
+        }
+
+
+    }//GEN-LAST:event_tableProjetosMouseClicked
+
+    private void tableTarefasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableTarefasMouseClicked
         // TODO add your handling code here:
-    }                                  
+        DefaultTableModel model = (DefaultTableModel) tableTarefas.getModel();
+        int linha = tableTarefas.getSelectedRow();
+    }//GEN-LAST:event_tableTarefasMouseClicked
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        //Get Item selecionado na Tabela Projetos
+        DefaultTableModel model = (DefaultTableModel) tableProjetos.getModel();
+        int linha = tableProjetos.getSelectedRow();
+        String n = model.getValueAt(linha, 0).toString();
+
+        //Get Item selecionado na Tabela Tarefas
+        DefaultTableModel modelTarefas = (DefaultTableModel) tableTarefas.getModel();
+        String nTarefa = modelTarefas.getValueAt(linha, 0).toString();
+
+        //Inicia uma tarefa
+        for (Projeto proj : Repositorio.getInstance().getProjeto_tarefas().keySet()) {
+            if (proj.getNome().equals(n)) {
+                Set<Tarefas> guarda = null;
+                guarda = proj.getTarefaList();
+                Iterator<Tarefas> iter = guarda.iterator();
+
+                while (iter.hasNext()) {
+                    Tarefas t = iter.next();
+                    if (t.getDescricao().equals(nTarefa)) {
+                        if (t.isIs_started()) {
+                            JOptionPane.showMessageDialog(null, "Tarefa já foi Iniciada");
+                        } else {
+
+                            Date data = new Date();
+                            t.setDataInicio(data);
+                            t.setIs_started(true);
+
+                            JOptionPane.showMessageDialog(null, "Tarefa Iniciada às: " + new SimpleDateFormat(" dd-MM-yyyy HH:mm:ss ").format(data) + "!");
+                            RefreshTable();
+                        }
+
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        //Get Item selecionado na Tabela Projetos
+        DefaultTableModel model = (DefaultTableModel) tableProjetos.getModel();
+        int linha = tableProjetos.getSelectedRow();
+        String n = model.getValueAt(linha, 0).toString();
+
+        //Get Item selecionado na Tabela Tarefas
+        DefaultTableModel modelTarefas = (DefaultTableModel) tableTarefas.getModel();
+        String nTarefa = modelTarefas.getValueAt(linha, 0).toString();
+
+        //Finaliza uma Tarefa
+        for (Projeto proj : Repositorio.getInstance().getProjeto_tarefas().keySet()) {
+            if (proj.getNome().equals(n)) {
+
+                Set<Tarefas> guarda = null;
+                guarda = proj.getTarefaList();
+                Iterator<Tarefas> iter = guarda.iterator();
+
+                while (iter.hasNext()) {
+                    Tarefas t = iter.next();
+                    if (t.getDescricao().equals(nTarefa)) {
+                        if (t.getDataInicio() == null) {
+                            JOptionPane.showMessageDialog(null, "Tarefa ainda não foi iniciada");
+                        } else {
+                            Date data = new Date();
+                            t.setDataFim(data);
+                            JOptionPane.showMessageDialog(null, "Tarefa Finalizada às: " + new SimpleDateFormat(" dd-MM-yyyy HH:mm:ss ").format(data) + "!");
+                            RefreshTable();
+                        }
+
+                    }
+                }
+
+            }
+        }
+
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        DefaultTableModel model = (DefaultTableModel) tableProjetos.getModel();
+        int linha = tableProjetos.getSelectedRow();
+        String nome = (model.getValueAt(linha, 0).toString());
+
+        for (Projeto p : Repositorio.getInstance().getProjeto_tarefas().keySet()) {
+            if (p.getNome().equals(nome)){
+                this.parentFrame.trocaPainel(new ListarUtilizadores(this.parentFrame, this.utilizador.getUsername(), p));
+            }
+
+        }
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        //Get linha selecionada na taela Projetos;
+        DefaultTableModel model = (DefaultTableModel) tableProjetos.getModel();
+        int linha = tableProjetos.getSelectedRow();
+        String nome = (model.getValueAt(linha, 0).toString());
+
+        for (Projeto p : Repositorio.getInstance().getProjeto_tarefas().keySet()) {
+            if (p.getNome().equals(nome)) {
+                this.parentFrame.trocaPainel(new ListarColaboradores(this.parentFrame, this.utilizador.getUsername(), p));
+            }
+
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    /**
+     * Atualiza a tabela Tarefas defenindo um estado
+     */
+    public void RefreshTable() {
+        DefaultTableModel tabelaTarefa = (DefaultTableModel) tableTarefas.getModel();
+        DefaultTableModel model = (DefaultTableModel) tableProjetos.getModel();
+        tabelaTarefa.setRowCount(0);
+        int linha = tableProjetos.getSelectedRow();
+        String n = model.getValueAt(linha, 0).toString();
+
+        for (Projeto proj : Repositorio.getInstance().getProjeto_tarefas().keySet()) {
+            if (proj.getNome().equals(n)) {
+                Set<Tarefas> guarda = null;
+                guarda = proj.getTarefaList();
+                Iterator<Tarefas> iter = guarda.iterator();
+
+                while (iter.hasNext()) {
+                    Tarefas t = iter.next();
+                    String estado = "";
+                    if (t.isIs_started() & t.getDataFim() != null & t.getDataInicio() != null) {
+                        estado = "Concluida";
+                    }
+                    if (t.isIs_started() & t.getDataInicio() != null & t.getDataFim() == null) {
+                        estado = "Iniciada";
+                    }
+                    if (!t.isIs_started() & t.getDataInicio() == null) {
+                        estado = "Não iniciada";
+                    }
+                    Object[] dados = {t.getDescricao(), estado};
+                    tabelaTarefa.addRow(dados);
+                }
+
+            }
+        }
+    }
+
+    private void userActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void pwActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable tableProjetos;
+    private javax.swing.JTable tableTarefas;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,27 +6,49 @@
 package GUI;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+import srt.freelancers.Projeto;
+import srt.freelancers.Repositorio;
+import srt.freelancers.Tarefas;
+import srt.freelancers.Utilizador;
 
 /**
  *
  * @author pedro
  */
-public class GerirTarefas extends javax.swing.JPanel {
+public class ListarUtilizadores extends javax.swing.JPanel {
 
     public BigDecimal userid;
     private PaginaInicial parentFrame;
-    private JPanel painelVisivel;
-
+    private Utilizador utilizador;
+    private Projeto projeto;
 
     /**
      * Creates new form Login
      */
-    public GerirTarefas(PaginaInicial parent) {
+    public ListarUtilizadores(PaginaInicial parent, String user, Projeto proj) {
         initComponents();
         parentFrame = parent;
+        Utilizador ut = new Utilizador();
+        utilizador = ut.setUser(user);
 
+        DefaultTableModel res1 = (DefaultTableModel) this.tableUsers.getModel();
+
+        projeto = proj;
+
+        //imprime os utilizadores na Tabela
+        for (Utilizador u : Repositorio.getInstance().getUtilizadores()) {
+            if (u.getNome().equals(utilizador.getNome())) {
+                
+            } else {
+                Object[] dados = {u.getNome(), u.getEmail(), u.getHorasTrabalho()};
+                res1.addRow(dados);
+            }
+        }
     }
 
     /**
@@ -44,6 +66,10 @@ public class GerirTarefas extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tableUsers = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
+        jButton7 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.addHierarchyListener(new java.awt.event.HierarchyListener() {
@@ -66,7 +92,7 @@ public class GerirTarefas extends javax.swing.JPanel {
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel8.setText("Gerir Tarefas");
+        jLabel8.setText("Adicionar Colaborador");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -75,14 +101,13 @@ public class GerirTarefas extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(617, 617, 617)
-                        .addComponent(jLabel7))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(321, 321, 321)
                         .addComponent(jLabel4))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(412, 412, 412)
-                        .addComponent(jLabel8)))
+                        .addGap(323, 323, 323)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel7))))
                 .addContainerGap(434, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -90,15 +115,15 @@ public class GerirTarefas extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jLabel4)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addContainerGap())
         );
 
         jPanel1.add(jPanel3);
-        jPanel3.setBounds(0, 0, 1071, 150);
+        jPanel3.setBounds(0, -10, 1071, 150);
 
         jButton1.setBackground(new java.awt.Color(241, 172, 49));
         jButton1.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
@@ -110,7 +135,45 @@ public class GerirTarefas extends javax.swing.JPanel {
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(410, 530, 200, 40);
+        jButton1.setBounds(230, 560, 200, 40);
+
+        tableUsers.setBackground(new java.awt.Color(204, 204, 204));
+        tableUsers.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {},
+            new String [] {
+                "Nome", "Email", "Horas Diarias"
+            }
+        ));
+        tableUsers.setToolTipText("");
+        tableUsers.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableUsersMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tableUsers);
+
+        jPanel1.add(jScrollPane3);
+        jScrollPane3.setBounds(240, 240, 560, 220);
+
+        jLabel11.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel11.setText("Lista de Usuários:");
+        jLabel11.setOpaque(true);
+        jPanel1.add(jLabel11);
+        jLabel11.setBounds(240, 210, 170, 27);
+
+        jButton7.setBackground(new java.awt.Color(204, 204, 255));
+        jButton7.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(51, 51, 51));
+        jButton7.setText("Convidar");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton7);
+        jButton7.setBounds(560, 560, 240, 40);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -135,30 +198,57 @@ public class GerirTarefas extends javax.swing.JPanel {
     }//GEN-LAST:event_jPanel1HierarchyChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.parentFrame.trocaPainel(new Menu(this.parentFrame));
+        this.parentFrame.trocaPainel(new ListarProjetos(this.parentFrame, this.utilizador.getUsername()));
     }//GEN-LAST:event_jButton1ActionPerformed
 
-        
-    
-                                        
+    private void tableUsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableUsersMouseClicked
 
-        
-    
-    private void userActionPerformed(java.awt.event.ActionEvent evt) {                                     
-        // TODO add your handling code here:
-    }                                    
+    }//GEN-LAST:event_tableUsersMouseClicked
 
-    private void pwActionPerformed(java.awt.event.ActionEvent evt) {                                   
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        //variaveis
+        DefaultTableModel model = (DefaultTableModel) tableUsers.getModel();
+        int linha = tableUsers.getSelectedRow();
+        String n = model.getValueAt(linha, 1).toString();
+        Set<Tarefas> guardaTarefas = null;
+        Set<Projeto> guarda = new HashSet<>();
+
+        //encontra o utilizador selecionado no Repositorio e define as suas variaveis de convite
+        for (Utilizador u : Repositorio.getInstance().getUtilizadores()) {
+            if (u.getEmail().equals(n)) {
+                u.setIs_convidado(true);
+                for (Projeto p : Repositorio.getInstance().getProjeto_tarefas().keySet()) {
+                    if (p.getNome().equals(projeto.getNome())) {
+                        guardaTarefas = p.getTarefaList();
+                        guarda.add(p);
+                        u.setGuardaTarefas_convidado(guardaTarefas);
+                        u.setGuarda_Projeto_convidado(guarda);
+                        JOptionPane.showMessageDialog(null, "Convite enviado para:" + u.getNome());
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void userActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    }                                  
+    }
+
+    private void pwActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable tableUsers;
     // End of variables declaration//GEN-END:variables
 }

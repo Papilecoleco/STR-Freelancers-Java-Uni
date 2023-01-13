@@ -6,8 +6,14 @@
 package GUI;
 
 import java.math.BigDecimal;
+import java.util.Iterator;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import java.io.*;
+import javax.swing.table.DefaultTableModel;
+import srt.freelancers.Repositorio;
+import srt.freelancers.Tarefas;
+import srt.freelancers.Utilizador;
 
 /**
  *
@@ -18,15 +24,37 @@ public class NovaTarefa extends javax.swing.JPanel {
     public BigDecimal userid;
     private PaginaInicial parentFrame;
     private JPanel painelVisivel;
-
+    private Utilizador utilizador;
 
     /**
      * Creates new form Login
      */
-    public NovaTarefa(PaginaInicial parent) {
+    public NovaTarefa(PaginaInicial parent, String user) {
         initComponents();
         parentFrame = parent;
+        Utilizador ut = new Utilizador();
+        utilizador = ut.setUser(user);
 
+        DefaultTableModel res = (DefaultTableModel) this.tabelaTarefas.getModel();
+        for (Tarefas x : Repositorio.getInstance().getTarefas()) {
+            res.addRow(new Object[]{
+                x.getDescricao()
+            });
+        }
+
+    }
+
+    /**
+     * atualiza a tabela
+     */
+    public void RefreshTable() {
+        DefaultTableModel model = (DefaultTableModel) tabelaTarefas.getModel();
+        model.setRowCount(0);
+        for (Tarefas x : Repositorio.getInstance().getTarefas()) {
+            model.addRow(new Object[]{
+                x.getDescricao()
+            });
+        }
     }
 
     /**
@@ -44,6 +72,14 @@ public class NovaTarefa extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        txtNome = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelaTarefas = new javax.swing.JTable();
+        jButton5 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.addHierarchyListener(new java.awt.event.HierarchyListener() {
@@ -66,7 +102,7 @@ public class NovaTarefa extends javax.swing.JPanel {
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel8.setText("Nova Tarefa");
+        jLabel8.setText("Gerir Tarefas");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -110,7 +146,80 @@ public class NovaTarefa extends javax.swing.JPanel {
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(410, 530, 200, 40);
+        jButton1.setBounds(380, 570, 200, 40);
+
+        txtNome.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.add(txtNome);
+        txtNome.setBounds(190, 200, 560, 30);
+
+        tabelaTarefas.setBackground(new java.awt.Color(204, 204, 204));
+        tabelaTarefas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {},
+            new String [] {
+                "Nome"
+            }
+        ));
+        tabelaTarefas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaTarefasMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabelaTarefas);
+
+        jPanel1.add(jScrollPane1);
+        jScrollPane1.setBounds(180, 370, 560, 150);
+
+        jButton5.setBackground(new java.awt.Color(204, 204, 255));
+        jButton5.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(51, 51, 51));
+        jButton5.setText("Adicionar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton5);
+        jButton5.setBounds(190, 270, 160, 40);
+
+        jLabel9.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel9.setText("Descrição:");
+        jLabel9.setOpaque(true);
+        jPanel1.add(jLabel9);
+        jLabel9.setBounds(200, 170, 170, 27);
+
+        jButton6.setBackground(new java.awt.Color(204, 204, 255));
+        jButton6.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(51, 51, 51));
+        jButton6.setText("Remover");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton6);
+        jButton6.setBounds(390, 270, 160, 40);
+
+        jButton7.setBackground(new java.awt.Color(204, 204, 255));
+        jButton7.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(51, 51, 51));
+        jButton7.setText("Alterar");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton7);
+        jButton7.setBounds(590, 270, 160, 40);
+
+        jLabel10.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel10.setText("Lista de Tarefas:");
+        jLabel10.setOpaque(true);
+        jPanel1.add(jLabel10);
+        jLabel10.setBounds(200, 340, 170, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -135,30 +244,131 @@ public class NovaTarefa extends javax.swing.JPanel {
     }//GEN-LAST:event_jPanel1HierarchyChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.parentFrame.trocaPainel(new Menu(this.parentFrame));
+        this.parentFrame.trocaPainel(new Menu(this.parentFrame, this.utilizador.getUsername()));
     }//GEN-LAST:event_jButton1ActionPerformed
 
-        
-    
-                                        
+    private void tabelaTarefasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaTarefasMouseClicked
+        DefaultTableModel model = (DefaultTableModel) tabelaTarefas.getModel();
+        int linha = tabelaTarefas.getSelectedRow();
+        txtNome.setText(model.getValueAt(linha, 0).toString());
 
-        
-    
-    private void userActionPerformed(java.awt.event.ActionEvent evt) {                                     
-        // TODO add your handling code here:
-    }                                    
+    }//GEN-LAST:event_tabelaTarefasMouseClicked
 
-    private void pwActionPerformed(java.awt.event.ActionEvent evt) {                                   
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        //variaveis
+        String desc = this.txtNome.getText();
+        boolean existe = false;
+        Tarefas t = new Tarefas();
+        String campo = txtNome.getText();
+        String compara = campo.toLowerCase();
+        DefaultTableModel res = (DefaultTableModel) this.tabelaTarefas.getModel();
+
+        //Percorrer as tarefas contidas no Repositorio
+        for (Tarefas a : Repositorio.getInstance().getTarefas()) {
+            if (compara.equals(a.getDescricao().toLowerCase())) {
+                JOptionPane.showMessageDialog(null, "Tarefa já existe!");
+                existe = true;
+            }
+
+        }
+        //Se a tarefa não exitir é adicionada ao Repositorio
+        if (!existe) {
+            t.setDescricao(desc);
+            Repositorio.getInstance().novaTarefa(t);
+            RefreshTable();
+            JOptionPane.showMessageDialog(null, "Tarefa adicionada com sucesso!");
+        }
+
+
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        //Remove a tarefa selecionada na tarefa
+        Iterator<Tarefas> iter = Repositorio.getInstance().getTarefas().iterator();
+        DefaultTableModel model = (DefaultTableModel) tabelaTarefas.getModel();
+        int linha = tabelaTarefas.getSelectedRow();
+        String n = model.getValueAt(linha, 0).toString();
+        while (iter.hasNext()) {
+            Tarefas t = iter.next();
+            if (t.getDescricao().equals(n)) {
+                iter.remove();
+                RefreshTable();
+                JOptionPane.showMessageDialog(null, "[" + n + "] removido com sucesso!");
+            }
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        //Editar Tarefa
+        Tarefas t = new Tarefas();
+        t.setDescricao(txtNome.getText());
+        boolean altera = true;
+        Iterator<Tarefas> iter1 = Repositorio.getInstance().getTarefas().iterator();
+        Iterator<Tarefas> iter2 = Repositorio.getInstance().getTarefas().iterator();
+        DefaultTableModel model = (DefaultTableModel) tabelaTarefas.getModel();
+        int linha = tabelaTarefas.getSelectedRow();
+        String selecionado = model.getValueAt(linha, 0).toString();
+        while (iter1.hasNext()) {
+            Tarefas ta = iter1.next();
+            if ((txtNome.getText()).toLowerCase().equals((ta.getDescricao()).toLowerCase())) {
+                altera = false;
+            }
+        }
+        while (iter2.hasNext()) {
+            Tarefas ta = iter2.next();
+            if (altera) {
+                if (ta.getDescricao().equals(selecionado)) {
+                    iter2.remove();
+                    JOptionPane.showMessageDialog(null, "[" + selecionado + "] alterado com sucesso para [" + txtNome.getText() + "]!");
+                    altera = true;
+                }
+            }
+        }
+        if (altera) {
+            Repositorio.getInstance().novaTarefa(t);
+            RefreshTable();
+        } else {
+            JOptionPane.showMessageDialog(null, "A tarefa [" + txtNome.getText() + "] já se encontra registada!");
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void setUser(String user) {
+
+        Utilizador util = null;
+        for (Utilizador u : Repositorio.getInstance().getUtilizadores()) {
+            String username = ((Utilizador) u).getUsername();
+            if (username.compareTo(user) == 0) {
+                util = ((Utilizador) u);
+            }
+        }
+        this.utilizador = util;
+
+    }
+
+    private void userActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    }                                  
+    }
+
+    private void pwActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tabelaTarefas;
+    private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
+
 }

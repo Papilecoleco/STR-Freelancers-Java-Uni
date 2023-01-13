@@ -5,9 +5,9 @@
  */
 package GUI;
 
-import java.math.BigDecimal;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import srt.freelancers.Repositorio;
+import srt.freelancers.Utilizador;
 
 /**
  *
@@ -15,10 +15,8 @@ import javax.swing.JPanel;
  */
 public class Login extends javax.swing.JPanel {
 
-    public BigDecimal userid;
+    public String email;
     private PaginaInicial parentFrame;
-    private JPanel painelVisivel;
-
 
     /**
      * Creates new form Login
@@ -48,6 +46,7 @@ public class Login extends javax.swing.JPanel {
         jButton5 = new javax.swing.JButton();
         pw = new javax.swing.JPasswordField();
         jButton4 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.addHierarchyListener(new java.awt.event.HierarchyListener() {
@@ -130,7 +129,7 @@ public class Login extends javax.swing.JPanel {
             }
         });
         jPanel1.add(jButton5);
-        jButton5.setBounds(590, 530, 200, 40);
+        jButton5.setBounds(540, 530, 200, 40);
 
         pw.setBackground(new java.awt.Color(255, 255, 255));
         pw.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -152,7 +151,19 @@ public class Login extends javax.swing.JPanel {
             }
         });
         jPanel1.add(jButton4);
-        jButton4.setBounds(260, 530, 200, 40);
+        jButton4.setBounds(340, 530, 200, 40);
+
+        jButton1.setBackground(new java.awt.Color(241, 172, 49));
+        jButton1.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(51, 51, 51));
+        jButton1.setText("Voltar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1);
+        jButton1.setBounds(340, 570, 400, 40);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -177,11 +188,32 @@ public class Login extends javax.swing.JPanel {
     }//GEN-LAST:event_jPanel1HierarchyChanged
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        this.parentFrame.trocaPainel(new Menu(this.parentFrame));
+        //Variavies input
+        String username = user.getText();
+        String password = pw.getText();
+        boolean existe = false;
+
+        //validação dos dados
+        if (username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Preencha o campo nome do utilizador e Password");
+        }
+        for (Utilizador x : Repositorio.getInstance().getUtilizadores()) {
+
+            if (username.equals(x.getUsername()) && password.equals(x.getPassword())) {
+                existe = true;
+                email = x.getEmail();
+                JOptionPane.showMessageDialog(null, "Login efetuado com sucesso");
+            }
+
+        }
+        if (existe) {
+            this.parentFrame.trocaPainel(new Menu(this.parentFrame, username));
+        } else {
+            JOptionPane.showMessageDialog(null, "Dados invalidos");
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
-        
-    
+
     private void userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_userActionPerformed
@@ -189,13 +221,19 @@ public class Login extends javax.swing.JPanel {
     private void pwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pwActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pwActionPerformed
-                                  
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        this.parentFrame.trocaPainel(new CriarConta(this.parentFrame));
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new PaginaInicial().show();
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel2;
